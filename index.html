@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A premium, corporate-grade client-side Markdown Beautifier using Material Design 3 guidelines. Process files locally in memory with zero storage.">
+    <title>Markdown Beautifier</title>
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500&family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <!-- Material Symbols for M3 Icons -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet">
+    <!-- HighlightJS CSS (Github Light style by default) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github.min.css" id="hljs-style">
+    <!-- Custom Style -->
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="m3-theme-light">
+    <!-- Main App Container -->
+    <div class="app-layout">
+        <!-- Sidebar Controls -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <span class="material-symbols-outlined logo-icon">auto_awesome</span>
+                <div class="sidebar-title-container">
+                    <h1 class="sidebar-title">MD Beautifier</h1>
+                    <span class="sidebar-subtitle">Corporate Edition</span>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="controls-section">
+                <h2 class="section-title">Theme & Mode</h2>
+                <!-- Dark Mode Switch -->
+                <div class="control-row">
+                    <span class="control-label-with-icon">
+                        <span class="material-symbols-outlined">dark_mode</span>
+                        <span>Dark Mode</span>
+                    </span>
+                    <button class="m3-switch" id="theme-mode-toggle" aria-label="Toggle dark theme" role="switch" aria-checked="false">
+                        <span class="switch-thumb"></span>
+                    </button>
+                </div>
+
+                <!-- Document Preset Style -->
+                <div class="control-group">
+                    <label class="control-label" for="preset-select">Document Style</label>
+                    <div class="select-wrapper">
+                        <select id="preset-select" class="m3-select">
+                            <option value="corporate">Corporate Modern</option>
+                            <option value="academic">Academic Serif</option>
+                            <option value="nordic">Nordic Frost</option>
+                            <option value="github">GitHub Classic</option>
+                            <option value="minimalist">Minimalist Slate</option>
+                        </select>
+                        <span class="material-symbols-outlined select-arrow">arrow_drop_down</span>
+                    </div>
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="controls-section">
+                <h2 class="section-title">Typography Settings</h2>
+                
+                <!-- Font Size -->
+                <div class="control-group">
+                    <label class="control-label" for="font-size-range">Font Size: <span id="font-size-val">16px</span></label>
+                    <input type="range" id="font-size-range" min="12" max="22" value="16" class="m3-slider">
+                </div>
+
+                <!-- Line Spacing -->
+                <div class="control-group">
+                    <label class="control-label" for="line-height-range">Line Spacing: <span id="line-height-val">1.6</span></label>
+                    <input type="range" id="line-height-range" min="1.2" max="2.0" step="0.1" value="1.6" class="m3-slider">
+                </div>
+            </div>
+
+            <hr class="divider">
+
+            <div class="controls-section">
+                <h2 class="section-title">Page Layout (PDF)</h2>
+                
+                <!-- Page Size -->
+                <div class="control-group">
+                    <label class="control-label" for="page-size-select">Page Size</label>
+                    <div class="select-wrapper">
+                        <select id="page-size-select" class="m3-select">
+                            <option value="a4">A4</option>
+                            <option value="letter">Letter</option>
+                        </select>
+                        <span class="material-symbols-outlined select-arrow">arrow_drop_down</span>
+                    </div>
+                </div>
+
+                <!-- Page Margin -->
+                <div class="control-group">
+                    <label class="control-label" for="page-margin-select">Margins</label>
+                    <div class="select-wrapper">
+                        <select id="page-margin-select" class="m3-select">
+                            <option value="normal">Normal (1 in / 2.54cm)</option>
+                            <option value="narrow">Narrow (0.5 in / 1.27cm)</option>
+                            <option value="wide">Wide (1.5 in / 3.81cm)</option>
+                        </select>
+                        <span class="material-symbols-outlined select-arrow">arrow_drop_down</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar-footer">
+                <button class="m3-button m3-button-tonal" id="clear-btn" disabled>
+                    <span class="material-symbols-outlined btn-icon">clear_all</span>
+                    Clear Session
+                </button>
+            </div>
+        </aside>
+
+        <!-- Main Workspace Area -->
+        <main class="main-content">
+            <!-- Top App Bar -->
+            <header class="top-bar">
+                <div class="top-bar-left">
+                    <button class="icon-button menu-toggle" id="menu-toggle-btn" aria-label="Toggle sidebar">
+                        <span class="material-symbols-outlined">menu</span>
+                    </button>
+                    <span class="top-bar-title" id="active-file-title">No file loaded</span>
+                </div>
+                <div class="top-bar-actions">
+                    <!-- Segmented Layout Buttons -->
+                    <div class="m3-segmented-control" id="layout-toggle" role="radiogroup" aria-label="Layout mode">
+                        <button class="segmented-item active" data-layout="split" role="radio" aria-checked="true">
+                            <span class="material-symbols-outlined">splitscreen</span>
+                            <span class="item-label">Split View</span>
+                        </button>
+                        <button class="segmented-item" data-layout="preview" role="radio" aria-checked="false">
+                            <span class="material-symbols-outlined">visibility</span>
+                            <span class="item-label">Preview Only</span>
+                        </button>
+                        <button class="segmented-item" data-layout="editor" role="radio" aria-checked="false">
+                            <span class="material-symbols-outlined">edit</span>
+                            <span class="item-label">Editor Only</span>
+                        </button>
+                    </div>
+                    <!-- Secondary upload action -->
+                    <button class="m3-button m3-button-filled" id="top-upload-btn">
+                        <span class="material-symbols-outlined btn-icon">upload_file</span>
+                        Upload MD
+                    </button>
+                    <input type="file" id="file-input" accept=".md,.markdown,.txt" style="display: none;">
+                </div>
+            </header>
+
+            <!-- Dashboard Content -->
+            <div class="workspace-viewport">
+                <!-- Dropzone overlay state -->
+                <div class="upload-dropzone active" id="upload-zone">
+                    <div class="dropzone-card">
+                        <div class="icon-glow">
+                            <span class="material-symbols-outlined dropzone-icon">upload_file</span>
+                        </div>
+                        <h2 class="dropzone-headline">Beautify Your Markdown</h2>
+                        <p class="dropzone-supporting-text">Drag and drop your Markdown file here, or click to upload. Files are processed entirely in memory and vanish when you close the tab.</p>
+                        <button class="m3-button m3-button-filled-tonal" id="dropzone-upload-btn">
+                            <span class="material-symbols-outlined btn-icon">search</span>
+                            Browse Files
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Live Editor / Preview Workspace -->
+                <div class="editor-workspace" id="editor-workspace">
+                    <!-- Left pane: Code Editor -->
+                    <div class="editor-pane" id="editor-pane">
+                        <div class="pane-header">
+                            <span class="pane-title">Source Editor</span>
+                            <span class="pane-action-tip">Edits automatically sync</span>
+                        </div>
+                        <div class="editor-wrapper">
+                            <div class="line-numbers" id="line-numbers"></div>
+                            <textarea id="markdown-textarea" placeholder="Paste or edit markdown code here..."></textarea>
+                        </div>
+                    </div>
+
+                    <!-- Divider resize bar (aesthetic) -->
+                    <div class="workspace-divider" id="workspace-divider"></div>
+
+                    <!-- Right pane: Document Preview -->
+                    <div class="preview-pane" id="preview-pane">
+                        <div class="pane-header">
+                            <span class="pane-title">Live Preview</span>
+                            <span class="theme-pill" id="theme-pill">Corporate</span>
+                        </div>
+                        <div class="preview-container">
+                            <!-- Paper wrapper simulating printed document layout -->
+                            <div class="preview-paper markdown-body" id="beautified-preview">
+                                <!-- Rendered Markdown content goes here -->
+                                <div class="empty-preview-placeholder">
+                                    <span class="material-symbols-outlined">description</span>
+                                    <p>Nothing to display yet.</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Bottom Status Bar -->
+            <footer class="status-bar">
+                <div class="status-group">
+                    <span class="status-item" id="word-count-badge">Words: 0</span>
+                    <span class="status-item" id="char-count-badge">Chars: 0</span>
+                    <span class="status-item" id="reading-time-badge">Est. Reading Time: 0 min</span>
+                </div>
+                <div class="status-group">
+                    <span class="status-item info-highlight">
+                        <span class="material-symbols-outlined inline-icon">security</span>
+                        Local memory session
+                    </span>
+                </div>
+            </footer>
+        </main>
+
+        <!-- Floating Action Button (M3 Extended FAB) -->
+        <button class="m3-fab-extended" id="pdf-download-btn" disabled aria-label="Export document as PDF">
+            <span class="material-symbols-outlined fab-icon">picture_as_pdf</span>
+            <span class="fab-text">Export to PDF</span>
+        </button>
+    </div>
+
+    <!-- Third-Party CDN Libraries -->
+    <!-- Marked.js for markdown parsing -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- DOMPurify for HTML sanitization -->
+    <script src="https://cdn.jsdelivr.net/npm/dompurify@3.0.6/dist/purify.min.js"></script>
+    <!-- Highlight.js for code syntax highlighting -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <!-- html2pdf.js for exporting HTML to PDF -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <!-- Custom Application Script -->
+    <script src="app.js"></script>
+</body>
+</html>

@@ -1,0 +1,1100 @@
+/* ==========================================================================
+   MATERIAL DESIGN 3 & CORPORATE PRESETS STYLING
+   ========================================================================== */
+
+/* 1. M3 Tokens and Custom Properties */
+:root {
+    /* Fonts */
+    --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+    --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
+    --font-mono: 'Fira Code', monospace;
+
+    /* Light Theme Palette (Default M3 Indigo-Teal) */
+    --md-sys-color-primary: #005faf;
+    --md-sys-color-on-primary: #ffffff;
+    --md-sys-color-primary-container: #d1e4ff;
+    --md-sys-color-on-primary-container: #001d3b;
+    
+    --md-sys-color-secondary: #535f70;
+    --md-sys-color-on-secondary: #ffffff;
+    --md-sys-color-secondary-container: #d6e3f7;
+    --md-sys-color-on-secondary-container: #101c2b;
+
+    --md-sys-color-tertiary: #6f5779;
+    --md-sys-color-on-tertiary: #ffffff;
+    --md-sys-color-tertiary-container: #f9d8ff;
+    --md-sys-color-on-tertiary-container: #281332;
+
+    --md-sys-color-surface: #fdfbff;
+    --md-sys-color-surface-dim: #f3f3fa;
+    --md-sys-color-surface-variant: #e0e2ec;
+    --md-sys-color-on-surface: #1a1c1e;
+    --md-sys-color-on-surface-variant: #43474e;
+    
+    --md-sys-color-outline: #73777f;
+    --md-sys-color-outline-variant: #c3c6cf;
+    --md-sys-color-error: #ba1a1a;
+    --md-sys-color-on-error: #ffffff;
+    --md-sys-color-error-container: #ffdad6;
+    --md-sys-color-on-error-container: #410002;
+
+    /* State Layers */
+    --md-sys-state-hover-overlay: rgba(0, 95, 175, 0.08);
+    --md-sys-state-focus-overlay: rgba(0, 95, 175, 0.12);
+    --md-sys-state-pressed-overlay: rgba(0, 95, 175, 0.16);
+
+    /* Animation */
+    --m3-easing-standard: cubic-bezier(0.2, 0, 0, 1);
+    --m3-transition-duration: 250ms;
+}
+
+/* Dark Theme Palette Override */
+.m3-theme-dark {
+    --md-sys-color-primary: #a4c9fe;
+    --md-sys-color-on-primary: #00315f;
+    --md-sys-color-primary-container: #004786;
+    --md-sys-color-on-primary-container: #d1e4ff;
+
+    --md-sys-color-secondary: #bbc7db;
+    --md-sys-color-on-secondary: #253140;
+    --md-sys-color-secondary-container: #3b4858;
+    --md-sys-color-on-secondary-container: #d6e3f7;
+
+    --md-sys-color-tertiary: #dcbce5;
+    --md-sys-color-on-tertiary: #3e2948;
+    --md-sys-color-tertiary-container: #563f60;
+    --md-sys-color-on-tertiary-container: #f9d8ff;
+
+    --md-sys-color-surface: #111318;
+    --md-sys-color-surface-dim: #0e1014;
+    --md-sys-color-surface-variant: #43474e;
+    --md-sys-color-on-surface: #e2e2e9;
+    --md-sys-color-on-surface-variant: #c3c6cf;
+
+    --md-sys-color-outline: #8d9199;
+    --md-sys-color-outline-variant: #43474e;
+    --md-sys-color-error: #ffb4ab;
+    --md-sys-color-on-error: #690005;
+    --md-sys-color-error-container: #93000a;
+    --md-sys-color-on-error-container: #ffdad6;
+
+    --md-sys-state-hover-overlay: rgba(164, 201, 254, 0.08);
+    --md-sys-state-focus-overlay: rgba(164, 201, 254, 0.12);
+    --md-sys-state-pressed-overlay: rgba(164, 201, 254, 0.16);
+}
+
+/* 2. Global Reset and Layout */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: var(--font-sans);
+    background-color: var(--md-sys-color-surface-dim);
+    color: var(--md-sys-color-on-surface);
+    height: 100vh;
+    overflow: hidden;
+    transition: background-color var(--m3-transition-duration) var(--m3-easing-standard),
+                color var(--m3-transition-duration) var(--m3-easing-standard);
+}
+
+.app-layout {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+}
+
+/* 3. M3 Components and Inputs Styling */
+
+/* Buttons */
+.m3-button {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.875rem;
+    letter-spacing: 0.1px;
+    height: 40px;
+    padding: 0 24px;
+    border-radius: 20px;
+    border: none;
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: box-shadow var(--m3-transition-duration) var(--m3-easing-standard),
+                background-color var(--m3-transition-duration) var(--m3-easing-standard);
+}
+
+.m3-button:disabled {
+    opacity: 0.38;
+    pointer-events: none;
+}
+
+.m3-button-filled {
+    background-color: var(--md-sys-color-primary);
+    color: var(--md-sys-color-on-primary);
+}
+.m3-button-filled:hover {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.12), 0 1px 2px rgba(0,0,0,0.24);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08));
+}
+.m3-button-filled:active {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.12), rgba(0, 0, 0, 0.12));
+}
+
+.m3-button-tonal {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+}
+.m3-button-tonal:hover {
+    box-shadow: 0 1px 2px rgba(0,0,0,0.1);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.05));
+}
+
+.m3-button-filled-tonal {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+}
+.m3-button-filled-tonal:hover {
+    box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.06));
+}
+
+/* Icon Button */
+.icon-button {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: none;
+    background: transparent;
+    color: var(--md-sys-color-on-surface);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: background-color var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.icon-button:hover {
+    background-color: var(--md-sys-state-hover-overlay);
+}
+
+/* M3 Switch Component */
+.m3-switch {
+    width: 52px;
+    height: 32px;
+    border-radius: 16px;
+    border: 2px solid var(--md-sys-color-outline);
+    background-color: var(--md-sys-color-surface-dim);
+    position: relative;
+    cursor: pointer;
+    transition: all var(--m3-transition-duration) var(--m3-easing-standard);
+    outline: none;
+}
+.m3-switch .switch-thumb {
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: var(--md-sys-color-outline);
+    position: absolute;
+    top: 50%;
+    left: 6px;
+    transform: translateY(-50%);
+    transition: all var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.m3-switch[aria-checked="true"] {
+    background-color: var(--md-sys-color-primary);
+    border-color: var(--md-sys-color-primary);
+}
+.m3-switch[aria-checked="true"] .switch-thumb {
+    left: 26px;
+    width: 24px;
+    height: 24px;
+    background-color: var(--md-sys-color-on-primary);
+}
+
+/* Select Dropdown */
+.control-group {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+}
+.control-label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+    font-family: var(--font-sans);
+}
+.control-label-with-icon {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface-variant);
+}
+.select-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+.m3-select {
+    width: 100%;
+    height: 48px;
+    border-radius: 8px;
+    border: 1px solid var(--md-sys-color-outline);
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+    padding: 0 16px;
+    font-size: 0.95rem;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    transition: border-color var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.m3-select:focus {
+    border-color: var(--md-sys-color-primary);
+    border-width: 2px;
+}
+.select-arrow {
+    position: absolute;
+    right: 12px;
+    pointer-events: none;
+    color: var(--md-sys-color-on-surface-variant);
+}
+
+/* Sliders */
+.m3-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: var(--md-sys-color-surface-variant);
+    outline: none;
+}
+.m3-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background: var(--md-sys-color-primary);
+    cursor: pointer;
+    transition: transform var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.m3-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.2);
+}
+
+/* Segmented Controls */
+.m3-segmented-control {
+    display: flex;
+    border: 1px solid var(--md-sys-color-outline);
+    border-radius: 20px;
+    overflow: hidden;
+    height: 40px;
+}
+.segmented-item {
+    background-color: transparent;
+    border: none;
+    border-right: 1px solid var(--md-sys-color-outline);
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+    font-size: 0.85rem;
+    font-family: var(--font-display);
+    padding: 0 16px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    transition: all var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.segmented-item:last-child {
+    border-right: none;
+}
+.segmented-item.active {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+}
+.segmented-item:hover:not(.active) {
+    background-color: var(--md-sys-state-hover-overlay);
+}
+
+/* Floating Action Button (M3 Extended FAB) */
+.m3-fab-extended {
+    position: fixed;
+    bottom: 32px;
+    right: 32px;
+    height: 56px;
+    padding: 0 24px;
+    border-radius: 16px;
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.15), 0 1px 3px rgba(0,0,0,0.1);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: var(--font-display);
+    font-weight: 600;
+    font-size: 0.95rem;
+    z-index: 100;
+    transition: box-shadow var(--m3-transition-duration) var(--m3-easing-standard),
+                background-color var(--m3-transition-duration) var(--m3-easing-standard),
+                transform var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.m3-fab-extended:hover {
+    box-shadow: 0 6px 12px rgba(0,0,0,0.2), 0 2px 4px rgba(0,0,0,0.15);
+    background-image: linear-gradient(rgba(255, 255, 255, 0.08), rgba(255, 255, 255, 0.08));
+    transform: translateY(-2px);
+}
+.m3-fab-extended:active {
+    transform: translateY(0);
+}
+.m3-fab-extended:disabled {
+    opacity: 0.38;
+    pointer-events: none;
+    box-shadow: none;
+}
+
+/* 4. Sidebar Styles */
+.sidebar {
+    width: 320px;
+    background-color: var(--md-sys-color-surface);
+    border-right: 1px solid var(--md-sys-color-surface-variant);
+    display: flex;
+    flex-direction: column;
+    padding: 24px;
+    overflow-y: auto;
+    z-index: 10;
+    transition: transform var(--m3-transition-duration) var(--m3-easing-standard);
+}
+
+.sidebar-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 8px;
+}
+.logo-icon {
+    font-size: 2.2rem;
+    color: var(--md-sys-color-primary);
+}
+.sidebar-title {
+    font-family: var(--font-display);
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: var(--md-sys-color-on-surface);
+}
+.sidebar-subtitle {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    color: var(--md-sys-color-primary);
+    font-weight: 600;
+}
+.divider {
+    border: none;
+    height: 1px;
+    background-color: var(--md-sys-color-surface-variant);
+    margin: 20px 0;
+}
+.section-title {
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-bottom: 16px;
+    font-weight: 700;
+}
+.control-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+.sidebar-footer {
+    margin-top: auto;
+    padding-top: 24px;
+}
+.sidebar-footer button {
+    width: 100%;
+}
+
+/* 5. Main Content Styles */
+.main-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+
+.top-bar {
+    height: 64px;
+    padding: 0 24px;
+    background-color: var(--md-sys-color-surface);
+    border-bottom: 1px solid var(--md-sys-color-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.top-bar-left {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.menu-toggle {
+    display: none; /* Desktop hidden */
+}
+.top-bar-title {
+    font-family: var(--font-display);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--md-sys-color-on-surface);
+}
+.top-bar-actions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+
+/* 6. Workspace Viewport & Layout Modes */
+.workspace-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    display: flex;
+}
+
+/* Drag and Drop Zone */
+.upload-dropzone {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--md-sys-color-surface-dim);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 40px;
+    z-index: 5;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.upload-dropzone.active {
+    opacity: 1;
+    pointer-events: all;
+}
+.dropzone-card {
+    max-width: 500px;
+    background-color: var(--md-sys-color-surface);
+    border: 2px dashed var(--md-sys-color-outline-variant);
+    border-radius: 28px;
+    padding: 40px;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    cursor: pointer;
+    transition: all var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.upload-dropzone.dragover .dropzone-card {
+    border-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-primary-container);
+    transform: scale(1.02);
+}
+.icon-glow {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    background-color: var(--md-sys-color-primary-container);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 24px;
+}
+.dropzone-icon {
+    font-size: 2.5rem;
+    color: var(--md-sys-color-primary);
+}
+.dropzone-headline {
+    font-family: var(--font-display);
+    font-size: 1.5rem;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+.dropzone-supporting-text {
+    font-size: 0.9rem;
+    color: var(--md-sys-color-on-surface-variant);
+    line-height: 1.5;
+    margin-bottom: 28px;
+}
+
+/* Editor Workspace Container */
+.editor-workspace {
+    flex: 1;
+    display: flex;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: opacity var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.editor-pane, .preview-pane {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow: hidden;
+}
+.editor-pane {
+    background-color: var(--md-sys-color-surface);
+}
+.preview-pane {
+    background-color: var(--md-sys-color-surface-dim);
+}
+
+.pane-header {
+    height: 48px;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--md-sys-color-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: var(--md-sys-color-surface);
+}
+.pane-title {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    color: var(--md-sys-color-on-surface-variant);
+}
+.pane-action-tip {
+    font-size: 0.75rem;
+    color: var(--md-sys-color-outline);
+}
+.theme-pill {
+    background-color: var(--md-sys-color-secondary-container);
+    color: var(--md-sys-color-on-secondary-container);
+    font-size: 0.75rem;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 12px;
+}
+
+/* Code Editor Wrapper */
+.editor-wrapper {
+    flex: 1;
+    display: flex;
+    overflow: hidden;
+    position: relative;
+}
+.line-numbers {
+    padding: 16px 8px 16px 16px;
+    text-align: right;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    color: var(--md-sys-color-outline-variant);
+    background-color: var(--md-sys-color-surface);
+    user-select: none;
+    line-height: 1.6;
+    border-right: 1px solid var(--md-sys-color-surface-variant);
+    min-width: 48px;
+}
+#markdown-textarea {
+    flex: 1;
+    height: 100%;
+    resize: none;
+    border: none;
+    outline: none;
+    padding: 16px;
+    font-family: var(--font-mono);
+    font-size: 0.9rem;
+    line-height: 1.6;
+    background-color: var(--md-sys-color-surface);
+    color: var(--md-sys-color-on-surface);
+}
+
+.workspace-divider {
+    width: 8px;
+    background-color: var(--md-sys-color-surface-variant);
+    cursor: col-resize;
+    position: relative;
+    transition: background-color var(--m3-transition-duration) var(--m3-easing-standard);
+}
+.workspace-divider:hover {
+    background-color: var(--md-sys-color-outline-variant);
+}
+
+/* Preview Sheet Paper Container */
+.preview-container {
+    flex: 1;
+    overflow-y: auto;
+    padding: 40px;
+    display: flex;
+    justify-content: center;
+}
+.preview-paper {
+    background-color: #ffffff;
+    color: #1a1c1e;
+    width: 100%;
+    max-width: 800px;
+    min-height: 297mm; /* Simulate A4 height ratio */
+    padding: 60px 80px;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.06);
+    border-radius: 4px;
+    transition: all var(--m3-transition-duration) var(--m3-easing-standard);
+    height: fit-content;
+}
+
+.empty-preview-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: var(--md-sys-color-outline-variant);
+    height: 300px;
+}
+.empty-preview-placeholder span {
+    font-size: 4rem;
+    margin-bottom: 16px;
+}
+
+/* Layout State toggles dynamically handled in CSS via body classes */
+.layout-preview-only .editor-pane,
+.layout-preview-only .workspace-divider {
+    display: none;
+}
+.layout-editor-only .preview-pane,
+.layout-editor-only .workspace-divider {
+    display: none;
+}
+
+/* 7. Markdown Beautiful Styles inside Preview Paper */
+.markdown-body {
+    font-size: var(--preview-font-size, 16px);
+    line-height: var(--preview-line-height, 1.6);
+    word-wrap: break-word;
+}
+.markdown-body h1, .markdown-body h2, .markdown-body h3, 
+.markdown-body h4, .markdown-body h5, .markdown-body h6 {
+    margin-top: 1.5em;
+    margin-bottom: 0.5em;
+    font-weight: 700;
+    line-height: 1.25;
+}
+.markdown-body p {
+    margin-top: 0;
+    margin-bottom: 1em;
+}
+.markdown-body a {
+    color: var(--md-sys-color-primary);
+    text-decoration: none;
+}
+.markdown-body a:hover {
+    text-decoration: underline;
+}
+.markdown-body ul, .markdown-body ol {
+    margin-top: 0;
+    margin-bottom: 1em;
+    padding-left: 2em;
+}
+.markdown-body li {
+    margin-bottom: 0.25em;
+}
+.markdown-body blockquote {
+    padding: 0 1em;
+    color: var(--md-sys-color-on-surface-variant);
+    border-left: 0.25em solid var(--md-sys-color-outline-variant);
+    margin: 0 0 1em 0;
+}
+.markdown-body code {
+    padding: 0.2em 0.4em;
+    margin: 0;
+    font-size: 85%;
+    background-color: var(--md-sys-color-surface-dim);
+    border-radius: 6px;
+    font-family: var(--font-mono);
+}
+.markdown-body pre {
+    padding: 16px;
+    overflow: auto;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: var(--md-sys-color-surface-dim);
+    border-radius: 8px;
+    margin-bottom: 1em;
+}
+.markdown-body pre code {
+    padding: 0;
+    margin: 0;
+    font-size: 100%;
+    word-break: normal;
+    white-space: pre;
+    background: transparent;
+    border: 0;
+}
+.markdown-body table {
+    border-spacing: 0;
+    border-collapse: collapse;
+    width: 100%;
+    margin-top: 0;
+    margin-bottom: 1em;
+    overflow: auto;
+}
+.markdown-body table th {
+    font-weight: 600;
+    background-color: var(--md-sys-color-surface-dim);
+}
+.markdown-body table th, .markdown-body table td {
+    padding: 8px 12px;
+    border: 1px solid var(--md-sys-color-outline-variant);
+}
+.markdown-body table tr:nth-child(even) {
+    background-color: rgba(0, 0, 0, 0.02);
+}
+.markdown-body img {
+    max-width: 100%;
+    box-sizing: content-box;
+    background-color: #fff;
+}
+.markdown-body hr {
+    height: 0.25em;
+    padding: 0;
+    margin: 24px 0;
+    background-color: var(--md-sys-color-surface-variant);
+    border: 0;
+}
+.markdown-body kbd {
+    display: inline-block;
+    padding: 3px 5px;
+    font: 11px var(--font-mono);
+    line-height: 10px;
+    color: #444d56;
+    vertical-align: middle;
+    background-color: #fafbfc;
+    border: solid 1px #c6cbd1;
+    border-bottom-color: #959da5;
+    border-radius: 3px;
+    box-shadow: inset 0 -1px 0 #959da5;
+}
+
+/* Preset Options styles */
+
+/* A. Corporate Modern (Clean Sans, Outfit Headers, Corporate Dark Navy Headers) */
+.preset-corporate {
+    font-family: var(--font-sans);
+}
+.preset-corporate h1, .preset-corporate h2, .preset-corporate h3 {
+    font-family: var(--font-display);
+    color: #0b1a30; /* Corporate deep blue */
+    border-bottom: 2px solid #e2e8f0;
+    padding-bottom: 0.3em;
+}
+.preset-corporate blockquote {
+    border-left-color: var(--md-sys-color-primary);
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    padding: 12px 16px;
+    border-radius: 0 8px 8px 0;
+}
+.preset-corporate table th {
+    background-color: var(--md-sys-color-primary-container);
+    color: var(--md-sys-color-on-primary-container);
+    border-color: var(--md-sys-color-outline-variant);
+}
+
+/* B. Academic Serif (Elegant serif typography, formal layout) */
+.preset-academic {
+    font-family: 'Playfair Display', Georgia, serif;
+    letter-spacing: 0.01em;
+}
+.preset-academic h1, .preset-academic h2, .preset-academic h3 {
+    font-family: 'Playfair Display', Georgia, serif;
+    text-align: center;
+    border: none;
+    font-weight: 600;
+}
+.preset-academic h1 {
+    font-size: 2.2rem;
+    margin-top: 1em;
+    margin-bottom: 1.2em;
+}
+.preset-academic h2 {
+    font-size: 1.6rem;
+    border-bottom: 1px solid #1a1c1e;
+    padding-bottom: 4px;
+    text-align: left;
+}
+.preset-academic p {
+    text-align: justify;
+    text-indent: 0;
+}
+.preset-academic blockquote {
+    border-left: 3px double #1a1c1e;
+    font-style: italic;
+    color: #444;
+}
+.preset-academic table th, .preset-academic table td {
+    border-left: none;
+    border-right: none;
+    border-color: #1a1c1e;
+}
+.preset-academic table th {
+    background: transparent;
+    border-bottom: 2px solid #1a1c1e;
+    border-top: 2px solid #1a1c1e;
+}
+.preset-academic table td {
+    border-bottom: 1px solid #eee;
+}
+
+/* C. Nordic Frost (Modern clean geometric sans, ice blue and slate tones) */
+.preset-nordic {
+    font-family: var(--font-display);
+    color: #2e3440;
+}
+.preset-nordic h1, .preset-nordic h2, .preset-nordic h3 {
+    font-family: var(--font-display);
+    color: #5e81ac; /* Nordic cold blue */
+    font-weight: 500;
+}
+.preset-nordic blockquote {
+    border-left-color: #88c0d0; /* Nordic cyan */
+    background-color: #e5e9f0;
+    color: #4c566a;
+    padding: 12px 16px;
+    border-radius: 8px;
+}
+.preset-nordic table th {
+    background-color: #88c0d0;
+    color: #2e3440;
+}
+.preset-nordic code {
+    background-color: #e5e9f0;
+    color: #bf616a;
+}
+.preset-nordic pre {
+    background-color: #2e3440;
+}
+.preset-nordic pre code {
+    color: #d8dee9;
+}
+
+/* D. GitHub Classic (Standard developer style markdown) */
+.preset-github {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+.preset-github h1, .preset-github h2 {
+    border-bottom: 1px solid #eaecef;
+    padding-bottom: 0.3em;
+}
+.preset-github blockquote {
+    border-left: 0.25em solid #dfe2e5;
+    color: #6a737d;
+}
+.preset-github table th {
+    background-color: #f6f8fa;
+}
+
+/* E. Minimalist Slate (Extremely sparse, architectural feel) */
+.preset-minimalist {
+    font-family: var(--font-sans);
+    color: #333333;
+}
+.preset-minimalist h1, .preset-minimalist h2, .preset-minimalist h3 {
+    font-weight: 300;
+    color: #111111;
+    letter-spacing: -0.5px;
+}
+.preset-minimalist h1 {
+    font-size: 2.5rem;
+}
+.preset-minimalist blockquote {
+    border-left: 1px solid #111111;
+    font-style: italic;
+    color: #666;
+}
+.preset-minimalist table th, .preset-minimalist table td {
+    border: none;
+    border-bottom: 1px solid #eee;
+    padding: 12px 0;
+}
+.preset-minimalist table th {
+    border-bottom: 2px solid #111111;
+    background: transparent;
+}
+
+/* 8. Bottom Status Bar */
+.status-bar {
+    height: 32px;
+    padding: 0 24px;
+    background-color: var(--md-sys-color-surface);
+    border-top: 1px solid var(--md-sys-color-surface-variant);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.75rem;
+    color: var(--md-sys-color-on-surface-variant);
+    font-weight: 500;
+}
+.status-group {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+}
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+.info-highlight {
+    color: var(--md-sys-color-primary);
+}
+.inline-icon {
+    font-size: 0.95rem;
+}
+
+/* Responsive Overrides (Collapsible Navigation) */
+@media(max-width: 900px) {
+    .app-layout {
+        flex-direction: column;
+    }
+    .sidebar {
+        position: absolute;
+        top: 64px;
+        left: 0;
+        bottom: 32px;
+        transform: translateX(-100%);
+        box-shadow: 4px 0 12px rgba(0,0,0,0.1);
+        width: 280px;
+    }
+    .sidebar.open {
+        transform: translateX(0);
+    }
+    .menu-toggle {
+        display: inline-flex;
+    }
+    .editor-workspace {
+        flex-direction: column;
+    }
+    .workspace-divider {
+        width: 100%;
+        height: 6px;
+        cursor: row-resize;
+    }
+}
+
+/* ==========================================================================
+   9. STRICT PRINT STYLING FOR GORGEOUS PDF EXPORT
+   ========================================================================== */
+@media print {
+    /* Hide non-document page UI completely */
+    body, .app-layout, .main-content, .workspace-viewport {
+        background: #ffffff !important;
+        color: #000000 !important;
+        height: auto !important;
+        overflow: visible !important;
+        width: auto !important;
+    }
+    
+    .sidebar, .top-bar, .status-bar, .m3-fab-extended, .pane-header, .editor-pane, .workspace-divider, .empty-preview-placeholder {
+        display: none !important;
+    }
+
+    .preview-pane {
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+    }
+    
+    .preview-container {
+        padding: 0 !important;
+        margin: 0 !important;
+        width: 100% !important;
+        height: auto !important;
+        overflow: visible !important;
+        display: block !important;
+    }
+
+    .preview-paper {
+        box-shadow: none !important;
+        border-radius: 0 !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        width: 100% !important;
+        max-width: 100% !important;
+        min-height: 0 !important;
+        height: auto !important;
+        overflow: visible !important;
+        background: transparent !important;
+        color: #000000 !important;
+    }
+
+    /* Keep theme styling colors visible but optimize for printing */
+    .preset-corporate h1, .preset-corporate h2, .preset-corporate h3 {
+        color: #0b1a30 !important;
+        border-bottom-color: #cbd5e1 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .preset-corporate blockquote {
+        background-color: #f1f5f9 !important; /* Lighter tint for printing */
+        border-left-color: #0284c7 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    .preset-academic h2 {
+        border-bottom-color: #000000 !important;
+    }
+    
+    .preset-nordic h1, .preset-nordic h2, .preset-nordic h3 {
+        color: #5e81ac !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+    .preset-nordic blockquote {
+        background-color: #e5e9f0 !important;
+        border-left-color: #88c0d0 !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+    }
+
+    /* Dynamic Page Size & Margins defined by print stylesheets injected via JS */
+    @page {
+        margin: 20mm;
+    }
+
+    /* Prevent breaking inside elements */
+    h1, h2, h3, h4, h5, h6 {
+        page-break-after: avoid;
+        break-after: avoid;
+    }
+    
+    pre, blockquote, table, tr, img {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+    
+    ul, ol {
+        page-break-inside: auto;
+    }
+    
+    li {
+        page-break-inside: avoid;
+        break-inside: avoid;
+    }
+}
