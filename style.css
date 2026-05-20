@@ -1062,7 +1062,7 @@ body {
         box-shadow: none !important;
         border-radius: 0 !important;
         margin: 0 !important;
-        padding: 0 !important;
+        padding: var(--pdf-margin, 20mm) !important;
         width: 100% !important;
         max-width: 100% !important;
         min-height: 0 !important;
