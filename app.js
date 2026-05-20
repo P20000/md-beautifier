@@ -339,16 +339,13 @@ pdfDownloadBtn.addEventListener('click', () => {
     const pageSize = pageSizeSelect.value;
     const marginOption = pageMarginSelect.value;
     
-    // Map margins to standard CSS values
+    // Map margins to standard values (in mm)
     let marginPx = '20mm'; // Default normal (20mm)
     if (marginOption === 'narrow') {
         marginPx = '10mm';
     } else if (marginOption === 'wide') {
         marginPx = '30mm';
     }
-    
-    // Set dynamic CSS variable for margins
-    beautifiedPreview.style.setProperty('--pdf-margin', marginPx);
     
     // Construct default clean file name
     let pdfFileName = 'beautified-document.pdf';
@@ -359,40 +356,60 @@ pdfDownloadBtn.addEventListener('click', () => {
     
     // Configure html2pdf options
     const opt = {
-        margin: 0, // Handled inside CSS padding to avoid clipping
+        margin: 0, // Handled inside CSS padding of the clone
         filename: pdfFileName,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
             scale: 2, 
             useCORS: true,
             logging: false,
-            width: 794,
-            windowWidth: 794
+            scrollX: 0,
+            scrollY: 0
         },
         jsPDF: { 
             unit: 'mm', 
             format: pageSize, 
             orientation: 'portrait' 
         },
-        // Force page break behavior based on CSS
         pagebreak: { mode: ['css', 'legacy'] }
     };
     
-    // Temporarily apply special printing classes for html2pdf to process
-    beautifiedPreview.classList.add('printing-active');
+    // Create an off-screen container wrapper (avoids layout shift and clipping)
+    const printWrapper = document.createElement('div');
+    printWrapper.style.position = 'absolute';
+    printWrapper.style.left = '-9999px';
+    printWrapper.style.top = '0';
+    printWrapper.style.width = '794px';
+    printWrapper.style.overflow = 'hidden';
     
-    // Export target (the preview content paper wrapper)
-    html2pdf().set(opt).from(beautifiedPreview).save().then(() => {
-        // Restore button state
+    // Clone the preview element to render inside the wrapper
+    const elementToPrint = beautifiedPreview.cloneNode(true);
+    elementToPrint.className = beautifiedPreview.className + ' printing-active';
+    elementToPrint.style.setProperty('--pdf-margin', marginPx);
+    
+    // Force normal placement on the clone inside its parent wrapper
+    elementToPrint.style.position = 'relative';
+    elementToPrint.style.left = '0';
+    elementToPrint.style.top = '0';
+    elementToPrint.style.margin = '0';
+    
+    printWrapper.appendChild(elementToPrint);
+    document.body.appendChild(printWrapper);
+    
+    // Export target (the off-screen clone)
+    html2pdf().set(opt).from(elementToPrint).save().then(() => {
+        // Clean up and restore button state
+        document.body.removeChild(printWrapper);
         pdfDownloadBtn.innerHTML = originalText;
         pdfDownloadBtn.removeAttribute('disabled');
-        beautifiedPreview.classList.remove('printing-active');
     }).catch(err => {
         console.error('PDF export failed:', err);
         alert('Failed to generate PDF. Please try again.');
+        if (document.body.contains(printWrapper)) {
+            document.body.removeChild(printWrapper);
+        }
         pdfDownloadBtn.innerHTML = originalText;
         pdfDownloadBtn.removeAttribute('disabled');
-        beautifiedPreview.classList.remove('printing-active');
     });
 });
 
