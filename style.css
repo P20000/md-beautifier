@@ -997,6 +997,35 @@ body {
     }
 }
 
+/* Special class applied during HTML2PDF compilation to force A4 width */
+#beautified-preview.printing-active {
+    width: 794px !important;
+    max-width: 794px !important;
+    min-height: 1123px !important;
+    padding: var(--pdf-margin, 20mm) !important;
+    box-shadow: none !important;
+    border: none !important;
+    margin: 0 !important;
+    background: #ffffff !important;
+    color: #000000 !important;
+    transform: none !important;
+    position: relative !important;
+    left: 0 !important;
+    top: 0 !important;
+    height: auto !important;
+}
+
+#beautified-preview.printing-active pre {
+    white-space: pre-wrap !important;
+    word-break: break-all !important;
+}
+
+#beautified-preview.printing-active table {
+    width: 100% !important;
+    table-layout: fixed !important;
+    word-wrap: break-word !important;
+}
+
 /* ==========================================================================
    9. STRICT PRINT STYLING FOR GORGEOUS PDF EXPORT
    ========================================================================== */

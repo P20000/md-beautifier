@@ -339,13 +339,16 @@ pdfDownloadBtn.addEventListener('click', () => {
     const pageSize = pageSizeSelect.value;
     const marginOption = pageMarginSelect.value;
     
-    // Map margins to standard values (in mm)
-    let margin = 20; // Default normal (20mm)
+    // Map margins to standard CSS values
+    let marginPx = '20mm'; // Default normal (20mm)
     if (marginOption === 'narrow') {
-        margin = 10;
+        marginPx = '10mm';
     } else if (marginOption === 'wide') {
-        margin = 30;
+        marginPx = '30mm';
     }
+    
+    // Set dynamic CSS variable for margins
+    beautifiedPreview.style.setProperty('--pdf-margin', marginPx);
     
     // Construct default clean file name
     let pdfFileName = 'beautified-document.pdf';
@@ -356,15 +359,15 @@ pdfDownloadBtn.addEventListener('click', () => {
     
     // Configure html2pdf options
     const opt = {
-        margin: margin,
+        margin: 0, // Handled inside CSS padding to avoid clipping
         filename: pdfFileName,
         image: { type: 'jpeg', quality: 0.98 },
         html2canvas: { 
             scale: 2, 
             useCORS: true,
             logging: false,
-            // Capture specific elements appropriately
-            windowWidth: 800
+            width: 794,
+            windowWidth: 794
         },
         jsPDF: { 
             unit: 'mm', 
